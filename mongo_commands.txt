@@ -1,0 +1,191 @@
+MongoDB shell version v5.0.2
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("9c6f64c2-612e-47b5-b098-61411ac781d8") }
+MongoDB server version: 5.0.2
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+We recommend you begin using "mongosh".
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting:
+        2021-11-13T22:03:23.444+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show databases
+Entertainment   0.000GB
+admin           0.000GB
+assignment      0.000GB
+auth            0.000GB
+blog            0.000GB
+blog2           0.000GB
+config          0.000GB
+enterntainment  0.000GB
+job             0.000GB
+library         0.000GB
+lms             0.000GB
+local           0.000GB
+mail            0.000GB
+pagination      0.000GB
+products        0.000GB
+shop            0.000GB
+test            0.000GB
+todo            0.000GB
+users           0.000GB
+> use assignment
+switched to db assignment
+> use users
+switched to db users
+> db.users.drop()
+true
+> db.users.find()
+> db.users.insert({first_name : "ram", last_name : "patil", email : "abc@xyz.com", gender : "male", ip_address : "345.35.335.335", age "22"})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:133
+> use users
+switched to db users
+> db.users.insert({first_name : "ram", last_name : "patil", email : "abc@xyz.com", gender : "male", ip_address : "345.35.335.335", age "22"})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:133
+> db.users.insert({first_name : "ram", last_name : "patil"})
+WriteResult({ "nInserted" : 1 })
+> db.users.insert({first_name : "ram", last_name : "patil", email : "abc@xyz.com", gender : "male", ip_address : "345.35.335.335", age : "22"})
+WriteResult({ "nInserted" : 1 })
+> db.users.insert({first_name : "Ravi", last_name : "patil", email : "abc@xyz.com", gender : "male", ip_address : "345.35.735.8835", age : "24"})
+WriteResult({ "nInserted" : 1 })
+> db.users.insert({first_name : "Rohan", last_name : "Jadhav", email : "rohan@xyz.com", gender : "male", ip_address : "5545.35.735.8835", age : "24"})
+WriteResult({ "nInserted" : 1 })
+> db.users.insert({first_name : "Rohini", last_name : "Jadhav", email : "rohini@xyz.com", gender : "female", ip_address : "5545.35.735.8835", age : "24"})
+WriteResult({ "nInserted" : 1 })
+> db.users.insert({first_name : "Pranali", last_name : "Jadhav", email : "rohini@xyz.com", gender : "female", ip_address : "2045.300.775.8835", age : "23"})
+WriteResult({ "nInserted" : 1 })
+> db.users.find()
+{ "_id" : ObjectId("619797921afa250a5b58b4bc"), "first_name" : "ram", "last_name" : "patil" }
+{ "_id" : ObjectId("619797b31afa250a5b58b4bd"), "first_name" : "ram", "last_name" : "patil", "email" : "abc@xyz.com", "gender" : "male", "ip_address" : "345.35.335.335", "age" : "22" }
+{ "_id" : ObjectId("619797f51afa250a5b58b4be"), "first_name" : "Ravi", "last_name" : "patil", "email" : "abc@xyz.com", "gender" : "male", "ip_address" : "345.35.735.8835", "age" : "24" }
+{ "_id" : ObjectId("6197981c1afa250a5b58b4bf"), "first_name" : "Rohan", "last_name" : "Jadhav", "email" : "rohan@xyz.com", "gender" : "male", "ip_address" : "5545.35.735.8835", "age" : "24" }
+{ "_id" : ObjectId("6197983c1afa250a5b58b4c0"), "first_name" : "Rohini", "last_name" : "Jadhav", "email" : "rohini@xyz.com", "gender" : "female", "ip_address" : "5545.35.735.8835", "age" : "24" }
+{ "_id" : ObjectId("6197985c1afa250a5b58b4c1"), "first_name" : "Pranali", "last_name" : "Jadhav", "email" : "rohini@xyz.com", "gender" : "female", "ip_address" : "2045.300.775.8835", "age" : "23" }
+> db.users.insertMany([{first_name : "Pooja", last_name : "Jadhav", email : "pooja@xyz.com", gender : "female", ip_address : "2045.300.775.8835", age : "23"},{first_name : "ramdas", last_name : "patil", email : "ramdas@xyz.com", gender : "male", ip_address : "005.35.3305.7335", age : "21"}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("619799c61afa250a5b58b4c2"),
+                ObjectId("619799c61afa250a5b58b4c3")
+        ]
+}
+> db.users.find()
+{ "_id" : ObjectId("619797921afa250a5b58b4bc"), "first_name" : "ram", "last_name" : "patil" }
+{ "_id" : ObjectId("619797b31afa250a5b58b4bd"), "first_name" : "ram", "last_name" : "patil", "email" : "abc@xyz.com", "gender" : "male", "ip_address" : "345.35.335.335", "age" : "22" }
+{ "_id" : ObjectId("619797f51afa250a5b58b4be"), "first_name" : "Ravi", "last_name" : "patil", "email" : "abc@xyz.com", "gender" : "male", "ip_address" : "345.35.735.8835", "age" : "24" }
+{ "_id" : ObjectId("6197981c1afa250a5b58b4bf"), "first_name" : "Rohan", "last_name" : "Jadhav", "email" : "rohan@xyz.com", "gender" : "male", "ip_address" : "5545.35.735.8835", "age" : "24" }
+{ "_id" : ObjectId("6197983c1afa250a5b58b4c0"), "first_name" : "Rohini", "last_name" : "Jadhav", "email" : "rohini@xyz.com", "gender" : "female", "ip_address" : "5545.35.735.8835", "age" : "24" }
+{ "_id" : ObjectId("6197985c1afa250a5b58b4c1"), "first_name" : "Pranali", "last_name" : "Jadhav", "email" : "rohini@xyz.com", "gender" : "female", "ip_address" : "2045.300.775.8835", "age" : "23" }
+{ "_id" : ObjectId("619799c61afa250a5b58b4c2"), "first_name" : "Pooja", "last_name" : "Jadhav", "email" : "pooja@xyz.com", "gender" : "female", "ip_address" : "2045.300.775.8835", "age" : "23" }
+{ "_id" : ObjectId("619799c61afa250a5b58b4c3"), "first_name" : "ramdas", "last_name" : "patil", "email" : "ramdas@xyz.com", "gender" : "male", "ip_address" : "005.35.3305.7335", "age" : "21" }
+> db.users.findOne({gender:"female"})
+{
+        "_id" : ObjectId("6197983c1afa250a5b58b4c0"),
+        "first_name" : "Rohini",
+        "last_name" : "Jadhav",
+        "email" : "rohini@xyz.com",
+        "gender" : "female",
+        "ip_address" : "5545.35.735.8835",
+        "age" : "24"
+}
+> db.users.update({"_id":"6197983c1afa250a5b58b4c0"}, {"first_name" : "Rutuja"})
+WriteResult({ "nMatched" : 0, "nUpserted" : 0, "nModified" : 0 })
+> db.users.update({"_id": ObjectId("6197983c1afa250a5b58b4c0")}, {"first_name" : "Rutuja"})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.users.update({"_id": ObjectId("619797921afa250a5b58b4bc")}, {"first_name" : "Ram", "last_name" : "Hedgapure"})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.users.updateMany({"age": "23"}, {"age" : "18"})
+uncaught exception: Error: the update operation document must contain atomic operators :
+DBCollection.prototype.updateMany@src/mongo/shell/crud_api.js:655:19
+@(shell):1:1
+> db.users.updateMany({"age": "23"},{$set : {"age" : "18"}})
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+> db.users.remove({"_id" : "ObjectId("6197983c1afa250a5b58b4c0")"})
+uncaught exception: SyntaxError: identifier starts immediately after numeric literal :
+@(shell):1:36
+> db.users.remove({"_id" : ObjectId("6197983c1afa250a5b58b4c0")})
+WriteResult({ "nRemoved" : 1 })
+> db.deleteOne({"first_name" : "Ramdas"})
+uncaught exception: TypeError: db.deleteOne is not a function :
+@(shell):1:1
+> db.users.deleteOne({"first_name" : "Ramdas"})
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.users.deleteOne({"first_name" : "Rohini"})
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.users.deleteOne({"first_name" : "Rutuja"})
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.users.deleteOne({first_name : "Rutuja"})
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.users.deleteOne({"gender" : "female"})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.users.deleteMany({"gender" : "female"})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.dropDatabase()
+{ "ok" : 1 }
+> show databases
+Entertainment   0.000GB
+admin           0.000GB
+assignment      0.000GB
+auth            0.000GB
+blog            0.000GB
+blog2           0.000GB
+config          0.000GB
+enterntainment  0.000GB
+job             0.000GB
+library         0.000GB
+lms             0.000GB
+local           0.000GB
+mail            0.000GB
+pagination      0.000GB
+products        0.000GB
+shop            0.000GB
+test            0.000GB
+todo            0.000GB
+> db
+users
+> use assignment
+switched to db assignment
+> show collections
+users
+> db.users.find()
+{ "_id" : ObjectId("61497743109984ee670ef560"), "first_name" : "Ramdas", "last_name" : "Hedgapure", "email" : "heispatil@gmail.com", "gender" : "Male", "ip_address" : "123.23.234.02", "age" : "23" }
+> db.dropDatabase()
+{ "ok" : 1 }
+> show databases
+Entertainment   0.000GB
+admin           0.000GB
+auth            0.000GB
+blog            0.000GB
+blog2           0.000GB
+config          0.000GB
+enterntainment  0.000GB
+job             0.000GB
+library         0.000GB
+lms             0.000GB
+local           0.000GB
+mail            0.000GB
+pagination      0.000GB
+products        0.000GB
+shop            0.000GB
+test            0.000GB
+todo            0.000GB
+>
+
