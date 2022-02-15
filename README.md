@@ -1,5 +1,5 @@
-Basics of MongoDB
-Advantages of MongoDB
+# Basics of MongoDB
+## Advantages of MongoDB
 - MongoDB has concept of documents which means that all data related to 1 row including the column name and the value is stored together unlike in SQL so horizontal scaling is very easy and infact MongoDB defaults to a cluster containing multiple servers.
 - As everything is stored together and kind of just dumped together so writing is faster than SQL databases but if the document size is big then it may not be true.
 Disadvantages of NoSQL ( Mongodb )
@@ -7,25 +7,29 @@ Disadvantages of NoSQL ( Mongodb )
 - SQL has a lot of similar syntax so moving from 1 database to another is easy as the syntax is highly similar and thus moving to a different database is easy but with NoSQL this cannot be guaranteed and thus learning curve can be steep.
 - Relational nature of SQL makes it easier for storing and managing data but Mongodb also has relational support but it is generally better avoided as this kind of defeats the main reason for existence of Mongodb
 - ACID properties are the main fortay of SQL and although latest version of Mongodb has ACID support but still adapting to this will take time.
-Installing Mongodb
+
+#3 Installing Mongodb
 DOWNLOAD MONGO :-
 - You can download mongo from this link Mongodb installation link
 - Download it from the link and then follow the instructions
 - Once installed open a terminal and type mongo and if it opens an interactive shell then we are good else you might need to open another
 - terminal window and type mongod to start mongo deamon and then in another window try mongo again.
 - MongoDB follows mongodb protocol and generally listens on port 27017
-Terminologies in MongoDB and comparison with MySQL :-
+- 
+## Terminologies in MongoDB and comparison with MySQL :-
 - Database in Mongodb => Entire Database for a project for e.g :- School
 - Collections in Mongodb => Individual logical separations within the database for e.g:- students, classes, etc.
 - Documents in Mongodb => Individual piece of data for e.g :- every student record inside students collection.
 - Fields in Mongodb => individual data points of a document for e.g :- name, age of a student document.
-Some basic commands for mongo :-
+- 
+## Some basic commands for mongo :-
 - `show dbs` # shows you all the databases on the mongo system
 - `use test` # this will get us into that db and if db does not exists then it will create one and then take us inside it
 - `db.dropDatabase()` # this will drop the current database
 - `show collections` # shows all the collections in the current db
 - `db.createCollection('users')` # creates a users collection in the current db
-Basic CRUD in Mongo :-
+- 
+##Basic CRUD in Mongo :-
 - `db.users.insert({"firstName": "Dhaval", "lastName": "Chheda"})` # this will create a new document inside users
 - `db.users.find({})` # this will return all the documents inside users collection
 ** Note ** :- Mongodb by default adds a unique _id which is unique across all collections and similar concept to MySQL
@@ -42,12 +46,12 @@ If we want to ensure only 1 document is removed then the best way is to pass a u
 
 If we do not know a unique key but still want to remove just 1 document then we can do db.users.remove({"firstName": "Prateek"}, 1) # removes the first document with firstName => Prateek
 
-Advanced Mongo
-Importing dummy data
+# Advanced Mongo
+## Importing dummy data
 - First generate dummy data by going to mockeroo and then creating sample data json
 
 - `mongoimport --drop --collection users --file ~/Desktop/Study/mongo/users.json --jsonArray`
-Comparison operators
+## Comparison operators
 - If we want to get results that exactly match the given condition then we use $eq and the query is as shown below :-
 `db.users.find({email: {$eq: "mblakeyn@patch.com"}}).pretty()`
 
@@ -75,13 +79,13 @@ if we want to restrict the number of fields returned then we can do that explici
 - Even though id is not selected it is still returned so to remove that also we need to explicitly say no to it as follows
 
 `db.users.find({"age": {$gt: 40}}, {"age": 1, "_id": 0})`
-Range Queries
+## Range Queries
 - If we want to select something from a range like age should be between 30 and 40 then we use the $in and the query is as follows :-
 `db.users.find({"age": {$in: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]}}, {"age": 1, "_id": 0})`
 
 - Now if we want to exclude rows that fall in the age group between 30 and 40 then we use $nin and the query can be
 `db.users.find({"age": {$nin: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]}}, {"age": 1, "_id": 0})`
-Logical Operators
+## Logical Operators
 - AND :- If we want to use more than 1 condition and want the row to pass both the conditions then we use the $and query and it can be written as below :-
 `db.users.find({$and: [{"gender": "Male"}, {"age": 42}]})`
 
@@ -97,7 +101,7 @@ Logical Operators
 
 - NOT :- If we want to the query to not match any of the conditions then we can also use the $not query as shown below :-
 `db.users.find({"age": {$not: {$gt: 40}}})`
-ELEMENT OPERATORS
+## ELEMENT OPERATORS
 - in this we check if a field exists and use $exists if it does then does it match a condition
 for e.g :- `db.movies.find({cast: {$exists: true, $in: ["Paul Boyton"]}})`
 
@@ -117,11 +121,11 @@ Sorting, Limiting and Offseting
 `db.users.find({"age": {$lt: 80}}, {"age": 1, "\_id": 0}).sort({age: -1}).skip(2).limit(5)`
 
 - For quick refresher on MongoDB you can check this video [MongoDB refresher](https://www.youtube.com/watch?v=ofme2o29ngU).
-Connecting Express with MongoDB
+## Connecting Express with MongoDB
 - To connect Express with MongoDB we need to use the mongoose package which provides an easy API to interact with MongoDB.
 
 - For quick refresher on Mongoose or to get an indepth knowledge you can refer to this video [Mongoose Refresher](https://www.youtube.com/watch?v=4yqu8YF29cU)
-Mongoose Relationships
+## Mongoose Relationships
 - Relationships means how one collection is related to the other collection and there are 3 main types of relationships
     - One to One :- here 1 document of first collection is related to exactly one document in the other collection and vice versa.
     for e.g :- we can have users and students collection and 1 user is related to exactly 1 student and 1 student is also related to exactly 1 user hence 1 - 1 relationship. So now to connect both collections we need to add a reference ( technically referred to as foreign key ) in either collection of the other collection so either we need to add student_id inside users collection or user_id inside students collection so how to determine where should it be added ?
