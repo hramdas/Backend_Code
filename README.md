@@ -157,4 +157,4 @@ Above are kind of technical definitions of the layers but the above layers in mo
 
 - Business Layer or Data Layer :- This is where the database activities happen and is the heart of the application and if represented in model files.
 
-For video refresher I would recommend you visit the pre class lecture for MVC which is [MVC Pre class](https://masai-course.s3.ap-south-1.amazonaws.com/lecture/5716/m
+For video refresher I would recommend you visit the pre class lecture for MVC which is [MVC Pre class]([MVC Pre class](https://masai-course.s3.ap-south-1.amazonaws.com/lecture/5716/material/fd4771e85e1f916f239624486bff502d/zoom_0.mp4)
