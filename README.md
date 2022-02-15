@@ -2,7 +2,7 @@
 ## Advantages of MongoDB
 - MongoDB has concept of documents which means that all data related to 1 row including the column name and the value is stored together unlike in SQL so horizontal scaling is very easy and infact MongoDB defaults to a cluster containing multiple servers.
 - As everything is stored together and kind of just dumped together so writing is faster than SQL databases but if the document size is big then it may not be true.
-Disadvantages of NoSQL ( Mongodb )
+## Disadvantages of NoSQL ( Mongodb )
 - As we store column name and column value in each and every row of the table thus we end up consuming a lot of space on the server and thus your storage costs will be higher but these days HDD are cheap so not a huge difference in the bills.
 - SQL has a lot of similar syntax so moving from 1 database to another is easy as the syntax is highly similar and thus moving to a different database is easy but with NoSQL this cannot be guaranteed and thus learning curve can be steep.
 - Relational nature of SQL makes it easier for storing and managing data but Mongodb also has relational support but it is generally better avoided as this kind of defeats the main reason for existence of Mongodb
@@ -29,7 +29,7 @@ DOWNLOAD MONGO :-
 - `show collections` # shows all the collections in the current db
 - `db.createCollection('users')` # creates a users collection in the current db
 - 
-##Basic CRUD in Mongo :-
+## Basic CRUD in Mongo :-
 - `db.users.insert({"firstName": "Dhaval", "lastName": "Chheda"})` # this will create a new document inside users
 - `db.users.find({})` # this will return all the documents inside users collection
 ** Note ** :- Mongodb by default adds a unique _id which is unique across all collections and similar concept to MySQL
@@ -110,7 +110,7 @@ for e.g :- `db.movies.find({cast: {$exists: true, $in: ["Paul Boyton"]}})`
 
 - There are a lot of such operators and we will touch base on some of them later in the course and you can check them out on the documentation link below
 Documentation link :- [MongoDB Operators link](https://docs.mongodb.com/manual/reference/operator/)
-Sorting, Limiting and Offseting
+## Sorting, Limiting and Offseting
 - Sorting :- sorting can happen in ascending and descending logic
 `db.users.find({"age": {$lt: 80}}, {"age": 1, "\_id": 0}).sort({age: -1})`
 
@@ -143,7 +143,7 @@ Sorting, Limiting and Offseting
     The solution is a little tricky as here we don't have a parent child relationship but the relationship is more like siblings. So to decide where to add the foreign key so you have to ask yourself how will it be queried so just to check 1 scenario which is having post_id inside tags so what happens when you create a post? here if a post has 20 tags then you have to insert 1 post and update 20 tags which can be a little time consuming and also whenever you update the post then you might have to also update the tags and also 1 tag can be connected with thousands of posts so the post_id foreign key array will be of thousands of items and hence unmanageable. Lets consider the other approach which is we adding tag_ids foreign key inside posts then when you create a post you have to do just 1 insert into posts and also 1 post logically might have 10-20 tags at max so the foreign key array is also manageable hence I would recommend adding tag_ids to posts collection and this is not right solution or anything but I feel its a better solution.
 
     For video reference I will highly recommend to visit the live class tutorial for relationships as this is probably the best material available for refreshing relationships memory.
-MVC
+## MVC
 Our applications generally consists of 3 layers
 
 - View Layer :- This is the client facing side of the application
