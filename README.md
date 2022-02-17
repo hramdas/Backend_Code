@@ -1,3 +1,18 @@
+# Express
+- Express is an un opinionated framework of Node which means that it does not enforce any project structures or other constraints on developers and this maybe one of the reasons for its wide acceptance. Express is also a npm package downloaded with npm.
+## Middleware
+Middleware is something that runs before the request hits our function that handles the request (commonly called route handlers ) and after the response is sent from the route handler.
+
+Middleware that is defined in app.use will run for all routes so a middleware like logger is a good example for it and you can also use middleware for selected routes by passing middleware function as the second argument to the function for e.g :- app.get("/", logger, function (req, res) { console.log("hello"); });
+
+we can also pass multiple middleware by passing them as an array app.get("/", [logger, logger], function (req, res) { console.log("hello"); });
+
+route handlers app.get and app.post are also middleware so if they are places above the app.use in our file then they will get executed first and middleware will not run as generally route handlers don't have a next().
+
+For parsing request body we can do app.use(express.json()) middleware and it should be placed above the requests that we will handle.
+
+For quick refresher you can watch this video on middleware in express.
+
 # Basics of MongoDB
 ## Advantages of MongoDB
 - MongoDB has concept of documents which means that all data related to 1 row including the column name and the value is stored together unlike in SQL so horizontal scaling is very easy and infact MongoDB defaults to a cluster containing multiple servers.
@@ -143,7 +158,7 @@ Documentation link :- [MongoDB Operators link](https://docs.mongodb.com/manual/r
     The solution is a little tricky as here we don't have a parent child relationship but the relationship is more like siblings. So to decide where to add the foreign key so you have to ask yourself how will it be queried so just to check 1 scenario which is having post_id inside tags so what happens when you create a post? here if a post has 20 tags then you have to insert 1 post and update 20 tags which can be a little time consuming and also whenever you update the post then you might have to also update the tags and also 1 tag can be connected with thousands of posts so the post_id foreign key array will be of thousands of items and hence unmanageable. Lets consider the other approach which is we adding tag_ids foreign key inside posts then when you create a post you have to do just 1 insert into posts and also 1 post logically might have 10-20 tags at max so the foreign key array is also manageable hence I would recommend adding tag_ids to posts collection and this is not right solution or anything but I feel its a better solution.
 
     For video reference I will highly recommend to visit the live class tutorial for relationships as this is probably the best material available for refreshing relationships memory.
-## MVC
+# MVC
 Our applications generally consists of 3 layers
 
 - View Layer :- This is the client facing side of the application
@@ -157,4 +172,79 @@ Above are kind of technical definitions of the layers but the above layers in mo
 
 - Business Layer or Data Layer :- This is where the database activities happen and is the heart of the application and if represented in model files.
 
-For video refresher I would recommend you visit the pre class lecture for MVC which is [MVC Pre class](https://masai-course.s3.ap-south-1.amazonaws.com/lecture/5716/material/fd4771e85e1f916f239624486bff502d/zoom_0.mp4)
+# Pagination
+- Pagination means dividing the total results into smaller chunks which can be shown as pages to not overwhelm the customer and also more the data we pass to the frontend, slower the performance and we end up wasting users internet which may not be necessary so for these reasons we have pagination
+
+- For Pagination we only need 2 things from the frontend , which is page number and items per page ( this may not be required if page size is fixed on the frontend ).
+
+- The query for pagination is :-
+`db.model.find({"query to be executed"}).skip(offset).limit(size)`
+
+- so how to calculate offset and size ?
+Now if we are on page 1 then we need first 10 results so offset is 0 and size is 10. so If we are on page 2 then we need results from 11 to 20 and size is 10. so from above dummy calculation we can formulate our page calculation as :-
+`offset = ( page - 1) * size`
+`size = size` ( same number that we received from frontend )
+
+Finally we also need to calculate the totalPages for the query so that frontend can show the next and previous arrows properly, for e.g :- if the user is on last page then they will not show next and if he is on first page then they will not show previous and a lot of other cool things can be done with this totalPages data.
+# Emails
+- The most common protocol for sending emails is SMTP ( Simple Mail Transfer Protocol ) but you may also want to know about IMAP and POP3 which are mostly used by our email clients.
+
+- Sending emails is integral part of almost all applications and emails can be of 2 types
+
+    - Transactional :- This are triggered by events that happen in the system like registration, payment, etc
+
+    - Promotional :- These are sent in bulk and mostly for marketing purposes and are commonly generated through cron jobs or some UI given to the business team.
+
+- For sending emails in Express and node in general we use the Nodemailer package and before sending an email you need to configure a few things
+
+- configure an SMTP server to do the actual work of sending emails and there are many SMTP service providers like AWS SES, Sendgrid, Mailchimp but for testing the best provider is mailtrap.io which intercepts the mail send from your system to the recipient and you can clearly see how the email looks.
+
+- Once you finalise the provider then you can create an account and it will give you some credentials which you need to save in your machine and use it for authentication with the SMTP provider.
+
+- Once you have this then you can write the code and send an email ..
+# Validations
+- validations are used to validate post form fields to ensure that whatever we need is present in the way we want it to be present and even though you guys are used to doing frontend validations but still validations must be performed on backend also as frontend code is available inside browser and user might modify it to bypass our validations hence backend validation is required and also remember to add validations to your database schema so that you have an additional layer of protection but you should never default to database validations.
+
+- we will use [express-validator](https://express-validator.github.io/docs/) and documentation for the same is available at express validator.
+# File Uploads
+- For uploading files you need to ensure that your frontend form is using encType of multipart/form-data and then you pass the file in the post request and this then we upload this file to local system and then optionally push it to cloud (In production systems DO NOT put things inside local system ) and once the file is saved, we will use the file path and save it in the database for retrieval later.
+
+- We are using [multer](https://www.npmjs.com/package/multer) npm package to help us with file uploads and you can check how it is used in the video.
+
+
+# Authentication
+- Authentication is restricting some parts of the application to only those users who identify themselves. Users identifying themselves also helps developers serve them better as it allows developers to show things relevant to them like in e-commerce applications we can know your preferences and show you products which match your preference.
+
+- Question) What is the difference between Authentication and Authorisation ?
+
+- Answer) Authentication has users identify themselves and after we know the identity then they may or may not be able to access certain parts of the application for e.g :- in a bank a person from home loan department may not be able to handle cashiering work or vice versa and we may also have super users which can be branch manager who may have access to all departments inside the bank and this is generally referred to as RBAC ( Role Based Access Control ) and we will look into authorisation in the next lecture.
+
+- Question) How do we authenticate a user?
+
+- Answer) The most common way is When a user signs up we associate a token with the user and that token is sent to the frontend and frontend then sends that token with every request that needs authentication ( or you may send it with every request ) and backend tries to find the associated user and then all actions are associated with that user.
+
+Today we are going to accomplish this token based authentication using json web tokens
+
+- Question) What is JSON web tokens ?
+
+- Answer) we take the details we want the token to have in a JSON format and then encrypt it with a Secret which is stored on the server and that generates a token which is then send to the client and then when the client sends the token back we decrypt the token using the secret and then the json information is retrieved as the final result.
+Oauth
+- OAuth is when applications who have large user base provide their authentication system to other applications so that they can have theuir customers authenticate through this 3rd party applications like FB, Google.
+
+- Advantage to the customer is he does not have to remember lots of passwords and if 1 application is compromised then he does not have to fear about his credentials being used on other applications that he has signed up for.
+
+- Security provided by FB or Google is much better then a normal small scale application so customer trusts those more than our application and from developer angle we do not have to build authentication systems ourselves and can achieve kind of password less systems.
+Authorization
+- Authorization comes after user authenticates and Authorisation determines which pages can a signed in user access.
+- This is also called as RBAC ( Role based access control ) and it helps in security also as some compromised credentials will not lead to the entire application being compromised.
+- 
+# Redis
+- Many times in your professional career you will encounter situations where you will be serving the same static output from the database to the users and still database will be working every time to give you that answer and when working on backend, database is the biggest cause of slow performance so you should try to eliminate it by using a key value store to serve this static data which is saved as 1 key and 1 value .. So you will say great .. lets use Mongo as it is key value store but Mongo is not built for such caching needs .. Redis is built for such use cases and is in-memory and returns the data much faster than mongo so redis can be used in this case.
+
+- Redis was not supported for Windows but I found a link on youtube which can help you setup Redis on Windows 10 [Install Redis on Windows](https://www.youtube.com/watch?v=188Fy-oCw4w).
+
+- Redis can also be used for queuing but this is outside the scope and there are some dedicated queue providers available but I like Redis queues.
+Web Sockets
+- we have learnt what http requests are and we know how server and client communicate in an http scenario but in some situations this is not ideal .. for e.g :- when you are working on a messaging app then receivers client needs to fetch data from the server and to make this happen you have to have all the clients poll the server every few seconds (technically referred to as long polling ) to fetch all the data but this is bad from user experience perspective as messages are not instantaneous plus this is very taxing on the server and you can end up with very high server bills.
+
+- So to tackle this situation we have web sockets .. Web sockets initially using http for handshake and initial connection establishment but after that the connection is upgraded to websocket and is kept open till either the browser tab is closed or server is stopped and this allows for server and client to communicate real time and client can send data to server and server can push data relevant to the client
