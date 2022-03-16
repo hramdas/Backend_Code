@@ -3,7 +3,6 @@ const User = require('../models/user');
 const router = express.Router()
 var cors = require('cors')
 
-
 // Pagination // skip items and show page
 router.get('', cors(), async(req, res)=>{
     try{
@@ -21,7 +20,6 @@ router.get('', cors(), async(req, res)=>{
         res.send(e.message)
     }
 })
-
 
 router.post('/', async(req, res)=>{
     const user = await User.create(req.body)

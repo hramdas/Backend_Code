@@ -1,16 +1,13 @@
-const transporter = require('../configs/mail')
+const transporter = require("../configs/mail");
 
-module.exports = (({from, to, subject, text, html}) => {  
-    var message = {
-        from: from,
-        to: to,
-        subject: subject,
-        text: text,
-        html: html
-    };  
-    
-    transporter.sendMail(message)  
-})
-    
+module.exports = ({ from, to, subject, text, html }) => {
+  var message = {
+    from: from,
+    to: to,
+    subject: subject,
+    text: text,
+    html: html,
+  };
 
-  
+  transporter.sendMail(message);
+};

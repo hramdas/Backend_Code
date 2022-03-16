@@ -20,6 +20,11 @@ router.post('/', async(req, res)=>{
 
     res.status(201).send({user})
 })
+router.get('/', async(req, res)=>{
+  let user = User.find().lean().exec();
+  res.status(200).send(user)
+})
+
 
 module.exports = router
 
