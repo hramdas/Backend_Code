@@ -30,4 +30,12 @@ select id, name from users where id = 1;
 
 update users set name = "Ram";
 
+update users set name = "Ramdas" where id = 1;
+
+
+
+
+
+
+
 ```
