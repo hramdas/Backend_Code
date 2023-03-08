@@ -32,7 +32,12 @@ update users set name = "Ram";
 
 update users set name = "Ramdas" where id = 1;
 
-
+* VIEW
+CREATE VIEW view_name AS
+SELECT cc.Id, cc.name c.customFields 
+FROM config cc
+    LEFT JOIN centers c
+		ON cc.centerId = c.centerid;
 
 
 
